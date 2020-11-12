@@ -1,0 +1,22 @@
+{
+  "name": "messages",
+  "version": "1.0.0",
+  "description": "Demo messages service",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "./scripts/start.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrdnctrk/messages.git"
+  },
+  "author": "Emre Dincturk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrdnctrk/messages/issues"
+  },
+  "homepage": "https://github.com/mrdnctrk/messages#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
