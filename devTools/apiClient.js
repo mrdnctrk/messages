@@ -13,6 +13,15 @@ class APIClient {
     return `${this.protocol}://${this.host}:${this.port}/${this.basePath}`
   }
 
+  static fromEnv() {
+    return new APIClient({
+      protocol: process.env.SERVER_PROTOCOL,
+      host: process.env.SERVER_ADDRESS,
+      port: process.env.SERVER_PORT,
+      basePath: process.env.SERVER_BASE_PATH
+    })
+  }
+
   async getMessages({expectedStatus = 200}={}) {
     let req = request(this.baseUrl)
       .get('api/messages')
