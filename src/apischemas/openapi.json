@@ -28,7 +28,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./messageList.json"
+                  "$ref": "./messages/messageList.json"
                 }
               }
             }
@@ -45,7 +45,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./message.json"
+                "$ref": "./messages/message.json"
               }
             }
           },
@@ -57,7 +57,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./message.json"
+                  "$ref": "./messages/message.json"
                 }
               }
             }
@@ -89,7 +89,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./message.json"
+                  "$ref": "./messages/message.json"
                 }
               }
             }
@@ -106,7 +106,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./message.json"
+                "$ref": "./messages/message.json"
               }
             }
           },
@@ -118,7 +118,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./message.json"
+                  "$ref": "./messages/message.json"
                 }
               }
             }
@@ -134,6 +134,27 @@
         "responses": {
           "204": {
             "description": "204 response"
+          }
+        }
+      }
+    },
+    "/health/readiness": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Retrieve api server readiness",
+        "operationId": "getReadiness",
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./health/readiness.json"
+                }
+              }
+            }
           }
         }
       }

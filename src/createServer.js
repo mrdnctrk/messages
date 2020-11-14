@@ -1,8 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 const messagesRouter = require('./controllers/messages/messagesRouter')
+const healthRouter = require('./controllers/health/healthRouter')
 const logger = console
-
 
 function createServer({port}) {
   return new Promise((resolve, reject) => {
@@ -15,8 +15,9 @@ function createServer({port}) {
 
       app.use(express.json());
 
+      //add routes
       app.use('/api/messages', messagesRouter)
-
+      app.use('/api/health', healthRouter)
 
 
       const server = app.listen(port, () => {

@@ -11,7 +11,7 @@ node src/start.js &
 
 #wait until the server is ready
 #TODO: implement a readiness probe
-until $(curl --output /dev/null --silent --fail ${SERVER_PROTOCOL}://${SERVER_ADDRESS}:${SERVER_PORT}/api/messages); do
+until $(curl --output /dev/null --silent --fail ${SERVER_PROTOCOL}://${SERVER_ADDRESS}:${SERVER_PORT}/api/health/readiness); do
     printf 'Waiting for server to start\n'
     sleep 1
 done
