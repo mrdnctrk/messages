@@ -6,8 +6,7 @@ const updateMessage = require('./updateMessage');
 
 const messageSchema = require('../../apischemas/messages/message.json')
 
-//TODO: rename the filename
-const getValidator = require('../../middleware/validator')
+const getValidator = require('../../middleware/getValidator')
 
 const messagesRouter = express.Router();
 
