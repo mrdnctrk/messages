@@ -5,6 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "./scripts/start.sh",
+    "test": "./scripts/test.sh",
     "test-integration": "./scripts/test-integration.sh"
   },
   "repository": {
@@ -18,11 +19,13 @@
   },
   "homepage": "https://github.com/mrdnctrk/messages#readme",
   "dependencies": {
+    "@exodus/schemasafe": "^1.0.0-rc.3",
     "cors": "^2.8.5",
     "express": "^4.17.1"
   },
   "devDependencies": {
     "mocha": "^8.2.1",
+    "nyc": "^15.1.0",
     "supertest": "^6.0.1"
   }
 }

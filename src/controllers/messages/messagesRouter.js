@@ -4,11 +4,15 @@ const getMessages = require('./getMessages');
 const deleteMessage = require('./deleteMessage');
 const updateMessage = require('./updateMessage');
 
+const messageSchema = require('../../apischemas/messages/message.json')
+
+const getValidator = require('../../middleware/getValidator')
+
 const messagesRouter = express.Router();
 
-messagesRouter.post('/', createMessage);
+messagesRouter.post('/', getValidator(messageSchema), createMessage);
 messagesRouter.get('/', getMessages);
-messagesRouter.put('/:id', updateMessage);
+messagesRouter.put('/:id', getValidator(messageSchema), updateMessage);
 messagesRouter.delete('/:id', deleteMessage);
 
 module.exports = messagesRouter

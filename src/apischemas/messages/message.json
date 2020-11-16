@@ -2,23 +2,23 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "additionalProperties": false,
+  "required": [
+    "message"
+  ],
   "properties": {
     "id": {
       "type": "string",
       "readOnly": true
     },
     "message": {
-      "type": "string",
-      "default": ""
+      "type": "string"
     },
     "createdAt": {
       "type": "integer",
-      "format": "int32",
       "readOnly": true
     },
     "updatedAt": {
       "type": "integer",
-      "format": "int32",
       "readOnly": true
     },
     "isPalindrome": {

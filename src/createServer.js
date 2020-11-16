@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const messagesRouter = require('./controllers/messages/messagesRouter')
 const healthRouter = require('./controllers/health/healthRouter')
+const errorHandler = require('./middleware/errorHandler')
 const logger = console
 
 function createServer({port}) {
@@ -19,7 +20,7 @@ function createServer({port}) {
       app.use('/api/messages', messagesRouter)
       app.use('/api/health', healthRouter)
 
-
+      app.use(errorHandler)
       const server = app.listen(port, () => {
         logger.info(`API Server listening at http://localhost:${server.address().port}`)
         resolve(server)
