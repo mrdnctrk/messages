@@ -4,9 +4,9 @@ const assert = require('assert')
 describe('create message tests', () => {
   let apiClient = APIClient.fromEnv()
 
-  it.only('creates a message', async () =>{
+  it('creates a message', async () =>{
     let res = await apiClient.createMessage({
-      message: 'Hello world'
+      message: { message: 'Hello world' }
     })
 
     let body = res.body
@@ -20,7 +20,7 @@ describe('create message tests', () => {
 
   it('creates a palindrome message', async () =>{
     let res = await apiClient.createMessage({
-      message: 'rotator'
+      message: { message: 'rotator' }
     })
 
     let body = res.body
@@ -32,20 +32,32 @@ describe('create message tests', () => {
     assert.equal(body.isPalindrome, true)
   })
 
-  it('fails if message is missing or null', async () =>{
+  it.only('fails if message is missing or null', async () =>{
     let res = await apiClient.createMessage({
-      expedtedStatus:400})
+      expectedStatus:400})
 
-    assert.equal(res.body.code, 'E_INVALID_REQUEST_PARAM')
-    assert.equal(res.body.params, ['message'])
-    //TODO: validate error message?
+    let error = res.body.errors[0]
+    assert.equal(error.errorCode, 'E_INVALID_REQUEST_BODY')
+    assert.deepEqual(error.invalidFields, [
+      {
+        path: '/message',
+        reason: 'required'
+      }
+    ])
     res = await apiClient.createMessage({
       message: null,
-      expedtedStatus:400
+      expectedStatus:400
     })
+    error = res.body.errors[0]
 
-    assert.equal(res.body.code, 'E_INVALID_REQUEST_PARAM')
-    assert.equal(res.body.params, ['message'])
+    assert.equal(error.errorCode, 'E_INVALID_REQUEST_BODY')
+    assert.deepEqual(error.invalidFields, [
+      {
+        path: '/message',
+        reason: 'required'
+      }
+    ])
+
   })
 
 })
