@@ -16,7 +16,7 @@ until $(curl --output /dev/null --silent --fail ${SERVER_PROTOCOL}://${SERVER_AD
 done
 
 #run tests and remember the exit code
-node node_modules/.bin/nyc mocha --exit --recursive test/integration --timeout ${TEST_TIMEOUT:-10000}
+node node_modules/.bin/nyc --reporter=none node_modules/.bin/mocha --exit --recursive test/integration --timeout ${TEST_TIMEOUT:-10000}
 testExitCode=$?
 
 #kill all child_processes if they haven't exited

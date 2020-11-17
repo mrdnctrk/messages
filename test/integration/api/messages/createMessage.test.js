@@ -4,7 +4,7 @@ const assert = require('assert')
 describe('create message tests', () => {
   let apiClient = APIClient.fromEnv()
 
-  it.only('creates a message', async () =>{
+  it('creates a message', async () =>{
     let res = await apiClient.createMessage({
       message: { message: 'Hello world' }
     })
