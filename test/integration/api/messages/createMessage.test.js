@@ -32,7 +32,7 @@ describe('create message tests', () => {
     assert.equal(body.isPalindrome, true)
   })
 
-  it.only('fails if message is missing or null', async () =>{
+  it('fails if message is missing or null', async () =>{
     let res = await apiClient.createMessage({
       expectedStatus:400})
 
