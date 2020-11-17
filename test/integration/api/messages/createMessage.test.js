@@ -4,7 +4,7 @@ const assert = require('assert')
 describe('create message tests', () => {
   let apiClient = APIClient.fromEnv()
 
-  it('creates a message', async () =>{
+  it.only('creates a message', async () =>{
     let res = await apiClient.createMessage({
       message: { message: 'Hello world' }
     })
@@ -32,7 +32,7 @@ describe('create message tests', () => {
     assert.equal(body.isPalindrome, true)
   })
 
-  it.only('fails if message is missing or null', async () =>{
+  it('fails if message is missing or null', async () =>{
     let res = await apiClient.createMessage({
       expectedStatus:400})
 
