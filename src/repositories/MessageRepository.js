@@ -6,6 +6,16 @@ class MessageRepository {
     this._messagesColl = db.collection(this._collName)
   }
 
+  _docToMessage(doc) {
+    return {
+      id: MongoUUID.from(doc._id).toString(),
+      message: doc.message,
+      createdAt : doc.createdAt.valueOf(),
+      updatedAt: doc.updatedAt.valueOf(),
+      isPalindrome: doc.isPalindrome
+    }
+  }
+
   async insertMessage({message}) {
     let doc = {
       _id : MongoUUID.from(message.id),
@@ -18,14 +28,22 @@ class MessageRepository {
     let res = await this._messagesColl.insertOne(doc)
 
     doc = res.ops[0]
-    return {
-      id: doc._id.toString(),
-      message: doc.message,
-      createdAt : message.createdAt,
-      updatedAt: message.updatedAt,
-      isPalindrome: message.isPalindrome
-    }
 
+    return this._docToMessage(doc)
+
+  }
+
+  async getMessage({id}) {
+    try {
+      let doc = await this._messagesColl.findOne({_id : MongoUUID.from(id)})
+      if (doc === null) {
+        return null
+      }
+      return this._docToMessage(doc)
+
+    } catch(e) {
+      console.log(e)
+    }
   }
 }
 

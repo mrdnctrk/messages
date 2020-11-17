@@ -1,6 +1,8 @@
 const {getMessageRepository} = require('../repositories/repositories')
 const UUID = require('../helpers/UUID')
 const isPalindrome = require('../helpers/isPalindrome')
+const APIError = require('../errors/APIError')
+
 async function createMessage({message, messageRepo=getMessageRepository()}) {
   message.id = UUID.generateRandom()
   const now = Date.now()
@@ -11,6 +13,25 @@ async function createMessage({message, messageRepo=getMessageRepository()}) {
   return insertedMessage
 }
 
+async function getMessage({id, messageRepo=getMessageRepository()}) {
+  let message = await messageRepo.getMessage({id})
+  if (!message) {
+    //TODO: stream line errors
+    const error = new Error()
+    error.errorCode = 'E_RESOURCE_NOT_FOUND'
+
+    throw APIError.fromSingleError({
+      statusCode: 404,
+      error
+    })
+  }
+
+  return message
+
+
+}
+
 module.exports = {
-  createMessage
+  createMessage,
+  getMessage
 }

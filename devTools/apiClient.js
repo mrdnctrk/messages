@@ -1,16 +1,16 @@
 const request = require('supertest')
 class APIClient {
 
-  constructor ({protocol, host, port, basePath=''}) {
+  constructor ({protocol, host, port}) {
     this.protocol = protocol
     this.host = host
     this.port = port
-    this.basePath = basePath
     this.baseUrl = this.getBaseUrl()
+    this.request = request(this.baseUrl)
   }
 
   getBaseUrl() {
-    return `${this.protocol}://${this.host}:${this.port}/${this.basePath}`
+    return `${this.protocol}://${this.host}:${this.port}`
   }
 
   static fromEnv() {
@@ -22,9 +22,17 @@ class APIClient {
     })
   }
 
+  async get({path, expectedStatus=200}) {
+    console.log('path:'+JSON.stringify(path))
+    let resp = await this.request
+      .get(path)
+      .expect(expectedStatus)
+    return resp
+  }
+
   async getMessages({expectedStatus = 200}={}) {
-    let req = request(this.baseUrl)
-      .get('api/messages')
+    let req = this.request
+      .get('/api/messages')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(expectedStatus)
@@ -34,9 +42,10 @@ class APIClient {
 
 
   async createMessage({message, expectedStatus=201}) {
-    let resp = await request(this.baseUrl)
-      .post('api/messages')
+    let resp = await this.request
+      .post('/api/messages')
       .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
       .send(message)
       .expect(expectedStatus)
     return resp
@@ -44,9 +53,10 @@ class APIClient {
 
 
   async updateMessage({id, message, expectedStatus=200}) {
-    let resp = await request(this.baseUrl)
-      .put(`api/messages/${id}`)
+    let resp = await this.request
+      .put(`/api/messages/${id}`)
       .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
       .send(message)
       .expect(expectedStatus)
     return resp
@@ -54,8 +64,8 @@ class APIClient {
 
 
   async getMessageById({id, expectedStatus = 200}){
-    let req = request(this.baseUrl)
-      .get(`api/messages/${id}`)
+    let req = this.request
+      .get(`/api/messages/${id}`)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(expectedStatus)
@@ -65,8 +75,8 @@ class APIClient {
 
 
   async deleteMessage({id, expectedStatus = 204}) {
-    let resp = await request(this.baseUrl)
-      .delete(`api/messages/${id}`)
+    let resp = await this.request
+      .delete(`/api/messages/${id}`)
       .set('Accept', 'application/json')
       .expect(expectedStatus)
     return resp

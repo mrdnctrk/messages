@@ -9,6 +9,8 @@ describe('create message tests', () => {
       message: { message: 'Hello world' }
     })
 
+    assert.equal(res.headers.location, `${apiClient.basePath}/messages/${res.body.id}`)
+
     let body = res.body
     assert.equal(body.message, 'Hello world')
     assert.ok(body.id)
@@ -23,6 +25,8 @@ describe('create message tests', () => {
       message: { message: 'rotator' }
     })
 
+    assert.equal(res.headers.location, `${apiClient.basePath}/messages/${res.body.id}`)
+
     let body = res.body
     assert.equal(body.message, 'rotator')
     assert.ok(body.id)
@@ -36,6 +40,7 @@ describe('create message tests', () => {
     let res = await apiClient.createMessage({
       expectedStatus:400})
 
+    assert.equal(res.headers.location, undefined)
     let error = res.body.errors[0]
     assert.equal(error.errorCode, 'E_INVALID_REQUEST_BODY')
     assert.deepEqual(error.invalidFields, [
