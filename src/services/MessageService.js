@@ -29,6 +29,11 @@ async function getMessage({id, messageRepo=getMessageRepository()}) {
   return message
 }
 
+async function getMessages({messageRepo=getMessageRepository()}={}) {
+  let messages = await messageRepo.getMessages()
+  return messages
+}
+
 async function updateMessage({message, messageRepo=getMessageRepository()}) {
   const now = Date.now()
   message.updatedAt = now
@@ -48,8 +53,11 @@ async function updateMessage({message, messageRepo=getMessageRepository()}) {
   return updatedMessage
 }
 
+
+
 module.exports = {
   createMessage,
   getMessage,
+  getMessages,
   updateMessage
 }

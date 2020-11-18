@@ -67,7 +67,11 @@ class MessageRepository {
     return this._docToMessage(doc)
   }
 
-
+  //Improve: add pagination as this pulling everything from db
+  async getMessages() {
+    let messages = await this._messagesColl.find({}).toArray()
+    return messages.map(m => this._docToMessage(m))
+  }
 
   async updateMessage({message}) {
     let _id

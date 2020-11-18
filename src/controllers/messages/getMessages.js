@@ -1,6 +1,9 @@
+const MessageService = require('../../services/MessageService')
+
 async function getMessages(req, res, next) {
   try {
-    return res.status(200).json({list: [{message: 'hello world'}]})
+    let messages = await MessageService.getMessages()
+    return res.status(200).json({list: messages})
   }
   catch(e) {
     next(e)
