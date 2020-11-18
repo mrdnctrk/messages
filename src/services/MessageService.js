@@ -19,7 +19,7 @@ async function getMessage({id, messageRepo=getMessageRepository()}) {
     //TODO: stream line errors
     const error = new Error()
     error.errorCode = 'E_RESOURCE_NOT_FOUND'
-
+    error.resourceId = id
     throw APIError.fromSingleError({
       statusCode: 404,
       error
@@ -27,11 +27,29 @@ async function getMessage({id, messageRepo=getMessageRepository()}) {
   }
 
   return message
+}
 
+async function updateMessage({message, messageRepo=getMessageRepository()}) {
+  const now = Date.now()
+  message.updatedAt = now
+  message.isPalindrome = isPalindrome(message.message)
+  let updatedMessage = await messageRepo.updateMessage({message})
+  if (!updatedMessage) {
+    //TODO: stream line errors
+    const error = new Error()
+    error.errorCode = 'E_RESOURCE_NOT_FOUND'
+    error.resourceId = message.id
+    throw APIError.fromSingleError({
+      statusCode: 404,
+      error
+    })
+  }
 
+  return updatedMessage
 }
 
 module.exports = {
   createMessage,
-  getMessage
+  getMessage,
+  updateMessage
 }

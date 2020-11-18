@@ -23,12 +23,24 @@ class APIClient {
   }
 
   async get({path, expectedStatus=200}) {
-    console.log('path:'+JSON.stringify(path))
     let resp = await this.request
       .get(path)
       .expect(expectedStatus)
     return resp
   }
+
+  async put({path, body, expectedStatus=200}) {
+    let resp = await this.request
+      .put(path)
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .send(body)
+      .expect(expectedStatus)
+    return resp
+  }
+
+
+
 
   async getMessages({expectedStatus = 200}={}) {
     let req = this.request
@@ -63,7 +75,7 @@ class APIClient {
   }
 
 
-  async getMessageById({id, expectedStatus = 200}){
+  async getMessage({id, expectedStatus = 200}){
     let req = this.request
       .get(`/api/messages/${id}`)
       .set('Accept', 'application/json')

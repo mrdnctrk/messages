@@ -14,6 +14,7 @@ function getErrorResponse (err) {
   if (err instanceof APIError) {
     statusCode = err.statusCode
   }
+  console.log('body:'+JSON.stringify(body))
   return { body, statusCode }
 }
 

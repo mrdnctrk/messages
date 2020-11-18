@@ -9,7 +9,7 @@ describe('create message tests', () => {
       message: { message: 'Hello world' }
     })
 
-    assert.equal(res.headers.location, `${apiClient.basePath}/messages/${res.body.id}`)
+    assert.equal(res.headers.location, `/api/messages/${res.body.id}`)
 
     let body = res.body
     assert.equal(body.message, 'Hello world')
@@ -25,7 +25,7 @@ describe('create message tests', () => {
       message: { message: 'rotator' }
     })
 
-    assert.equal(res.headers.location, `${apiClient.basePath}/messages/${res.body.id}`)
+    assert.equal(res.headers.location, `/api/messages/${res.body.id}`)
 
     let body = res.body
     assert.equal(body.message, 'rotator')
