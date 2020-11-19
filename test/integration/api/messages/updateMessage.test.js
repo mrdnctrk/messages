@@ -1,7 +1,6 @@
 const APIClient = require('../../../../devTools/apiClient')
 const assert = require('assert')
 
-//TODO: more tests could be added to verify isPalindrome logic
 describe('update message tests', () => {
   let apiClient = APIClient.fromEnv()
 

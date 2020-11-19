@@ -3,13 +3,19 @@ const UUID = require('../helpers/UUID')
 const isPalindrome = require('../helpers/isPalindrome')
 const ErrorWithCode = require('../errors/ErrorWithCode')
 
-async function createMessage({message, messageRepo=getMessageRepository()}) {
-  message.id = UUID.generateRandom()
-  const now = Date.now()
-  message.createdAt = now
-  message.updatedAt = now
-  message.isPalindrome = isPalindrome(message.message)
-  let insertedMessage = await messageRepo.insertMessage({message})
+async function createMessage({
+  message,
+  messageRepo=getMessageRepository()
+}) {
+  let now = Date.now()
+  let messageToInsert = {
+    id : UUID.generateRandom(),
+    createdAt: now,
+    updatedAt: now,
+    message,
+    isPalindrome: isPalindrome(message)
+  }
+  let insertedMessage = await messageRepo.insertMessage({message: messageToInsert})
   return insertedMessage
 }
 
@@ -35,13 +41,22 @@ async function getMessages({messageRepo=getMessageRepository()}={}) {
   return messages
 }
 
-async function updateMessage({message, messageRepo=getMessageRepository()}) {
-  const now = Date.now()
-  message.updatedAt = now
-  message.isPalindrome = isPalindrome(message.message)
-  let updatedMessage = await messageRepo.updateMessage({message})
+async function updateMessage({
+  id,
+  message,
+  messageRepo=getMessageRepository(),
+}) {
+
+  let messageToUpdate = {
+    id,
+    message,
+    updatedAt: Date.now(),
+    isPalindrome: isPalindrome(message)
+  }
+
+  let updatedMessage = await messageRepo.updateMessage({message: messageToUpdate})
   if (!updatedMessage) {
-    throw new ErrorWithCode({code: 'E_RESOURCE_NOT_FOUND', resourceId: message.id})
+    throw new ErrorWithCode({code: 'E_RESOURCE_NOT_FOUND', resourceId: id})
   }
 
   return updatedMessage
