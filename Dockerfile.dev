@@ -1,0 +1,16 @@
+FROM node:12-alpine
+
+RUN apk add --update bash && rm -rf /var/cache/apk/*
+
+RUN mkdir -p /opt/app-root/
+WORKDIR /opt/app-root/
+
+COPY ./package.json ./package.json
+COPY ./package-lock.json ./package-lock.json
+
+RUN npm install 
+
+COPY . .
+
+CMD ["node", "./src/start.js"]
+
