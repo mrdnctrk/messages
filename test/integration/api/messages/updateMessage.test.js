@@ -1,7 +1,6 @@
 const APIClient = require('../../../../devTools/apiClient')
 const assert = require('assert')
 
-//TODO: more tests could be added to verify isPalindrome logic
 describe('update message tests', () => {
   let apiClient = APIClient.fromEnv()
 
@@ -33,7 +32,7 @@ describe('update message tests', () => {
       expectedStatus: 404
     })
     let [error] = res.body.errors
-    assert.equal(error.errorCode, 'E_RESOURCE_NOT_FOUND')
+    assert.equal(error.code, 'E_RESOURCE_NOT_FOUND')
     assert.equal(error.resourceId, notExistingId)
   })
 
@@ -50,7 +49,7 @@ describe('update message tests', () => {
     })
 
     let error = res.body.errors[0]
-    assert.equal(error.errorCode, 'E_INVALID_REQUEST_BODY')
+    assert.equal(error.code, 'E_INVALID_REQUEST_BODY')
     assert.deepEqual(error.invalidFields, [
       {
         path: '/message',
@@ -64,7 +63,7 @@ describe('update message tests', () => {
     })
     error = res.body.errors[0]
 
-    assert.equal(error.errorCode, 'E_INVALID_REQUEST_BODY')
+    assert.equal(error.code, 'E_INVALID_REQUEST_BODY')
     assert.deepEqual(error.invalidFields, [
       {
         path: '/message',

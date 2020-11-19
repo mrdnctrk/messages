@@ -42,7 +42,7 @@ describe('create message tests', () => {
 
     assert.equal(res.headers.location, undefined)
     let error = res.body.errors[0]
-    assert.equal(error.errorCode, 'E_INVALID_REQUEST_BODY')
+    assert.equal(error.code, 'E_INVALID_REQUEST_BODY')
     assert.deepEqual(error.invalidFields, [
       {
         path: '/message',
@@ -55,7 +55,7 @@ describe('create message tests', () => {
     })
     error = res.body.errors[0]
 
-    assert.equal(error.errorCode, 'E_INVALID_REQUEST_BODY')
+    assert.equal(error.code, 'E_INVALID_REQUEST_BODY')
     assert.deepEqual(error.invalidFields, [
       {
         path: '/message',

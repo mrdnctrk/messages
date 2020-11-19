@@ -1,0 +1,48 @@
+{
+  "content": {
+    "application/json": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "./errorBase.json"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "E_INVALID_REQUEST_BODY"
+                      ]
+                    },
+                    "invalidFields": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "path": {
+                            "type": "string",
+                            "description": "a json pointer to the invalid field."
+                          },
+                          "reason": {
+                            "type": "string",
+                            "description": "reason whyt field failed validation"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

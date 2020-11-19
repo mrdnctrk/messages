@@ -28,7 +28,7 @@ describe('delete message tests', () => {
     })
 
     let [error] = res.body.errors
-    assert.equal(error.errorCode, 'E_RESOURCE_NOT_FOUND')
+    assert.equal(error.code, 'E_RESOURCE_NOT_FOUND')
     assert.equal(error.resourceId, notExistingId)
   })
 
