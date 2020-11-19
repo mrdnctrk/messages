@@ -1,6 +1,8 @@
 const {getMessageRepository} = require('../repositories/repositories')
 const UUID = require('../helpers/UUID')
 const isPalindrome = require('../helpers/isPalindrome')
+const APIError = require('../errors/APIError')
+
 async function createMessage({message, messageRepo=getMessageRepository()}) {
   message.id = UUID.generateRandom()
   const now = Date.now()
@@ -11,6 +13,67 @@ async function createMessage({message, messageRepo=getMessageRepository()}) {
   return insertedMessage
 }
 
+async function deleteMessage({id, messageRepo=getMessageRepository()}) {
+  let isDeleted = await messageRepo.deleteMessage({id})
+  if (!isDeleted){
+    const error = new Error()
+    error.errorCode = 'E_RESOURCE_NOT_FOUND'
+    error.resourceId = id
+    throw APIError.fromSingleError({
+      statusCode: 404,
+      error
+    })
+  }
+}
+
+
+async function getMessage({id, messageRepo=getMessageRepository()}) {
+  let message = await messageRepo.getMessage({id})
+  if (!message) {
+    //TODO: stream line errors
+    const error = new Error()
+    error.errorCode = 'E_RESOURCE_NOT_FOUND'
+    error.resourceId = id
+    throw APIError.fromSingleError({
+      statusCode: 404,
+      error
+    })
+  }
+
+  return message
+}
+
+async function getMessages({messageRepo=getMessageRepository()}={}) {
+  let messages = await messageRepo.getMessages()
+  return messages
+}
+
+async function updateMessage({message, messageRepo=getMessageRepository()}) {
+  const now = Date.now()
+  message.updatedAt = now
+  message.isPalindrome = isPalindrome(message.message)
+  let updatedMessage = await messageRepo.updateMessage({message})
+  if (!updatedMessage) {
+    //TODO: stream line errors
+    const error = new Error()
+    error.errorCode = 'E_RESOURCE_NOT_FOUND'
+    error.resourceId = message.id
+    throw APIError.fromSingleError({
+      statusCode: 404,
+      error
+    })
+  }
+
+  return updatedMessage
+}
+
+
+
+
 module.exports = {
-  createMessage
+  createMessage,
+  deleteMessage,
+  getMessage,
+  getMessages,
+  updateMessage
 }
