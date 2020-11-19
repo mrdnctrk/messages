@@ -1,8 +1,10 @@
+const MessageService = require('../../services/MessageService')
+
 async function deleteMessage(req, res, next) {
   try {
+    await MessageService.deleteMessage({id: req.params.id})
     return res.status(204).end()
-  }
-  catch(e) {
+  }catch(e) {
     next(e)
   }
 

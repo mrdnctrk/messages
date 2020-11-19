@@ -13,6 +13,20 @@ async function createMessage({message, messageRepo=getMessageRepository()}) {
   return insertedMessage
 }
 
+async function deleteMessage({id, messageRepo=getMessageRepository()}) {
+  let isDeleted = await messageRepo.deleteMessage({id})
+  if (!isDeleted){
+    const error = new Error()
+    error.errorCode = 'E_RESOURCE_NOT_FOUND'
+    error.resourceId = id
+    throw APIError.fromSingleError({
+      statusCode: 404,
+      error
+    })
+  }
+}
+
+
 async function getMessage({id, messageRepo=getMessageRepository()}) {
   let message = await messageRepo.getMessage({id})
   if (!message) {
@@ -55,8 +69,10 @@ async function updateMessage({message, messageRepo=getMessageRepository()}) {
 
 
 
+
 module.exports = {
   createMessage,
+  deleteMessage,
   getMessage,
   getMessages,
   updateMessage

@@ -25,7 +25,7 @@ describe('update message tests', () => {
     assert.equal(body.isPalindrome, true)
   })
 
-  it('fails with not existing id', async() => {
+  it('responds with error for not existing id', async() => {
     let notExistingId = 'ebe18f12-0dc9-4bab-b9fd-8a9c45477b45'
     let res = await apiClient.updateMessage({
       id: notExistingId,
@@ -38,7 +38,7 @@ describe('update message tests', () => {
   })
 
 
-  it('fails if message is missing or null', async () =>{
+  it('responds with error if message field is missing or null', async () =>{
     let createRes = await apiClient.createMessage({
       message: { message: 'rotator' }
     })

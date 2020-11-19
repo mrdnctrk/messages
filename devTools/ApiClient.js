@@ -39,6 +39,15 @@ class APIClient {
     return resp
   }
 
+  async delete({path, body, expectedStatus=204}) {
+    let resp = await this.request
+      .delete(path)
+      .set('Accept', 'application/json')
+      .send(body)
+      .expect(expectedStatus)
+    return resp
+  }
+
 
 
 

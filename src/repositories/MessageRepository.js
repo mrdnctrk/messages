@@ -52,6 +52,19 @@ class MessageRepository {
 
   }
 
+  async deleteMessage({id}) {
+    let _id
+    try {
+      _id = MongoUUID.from(id)
+    } catch(e) {
+      //invalid id
+      return null
+    }
+
+    let res = await this._messagesColl.deleteOne({_id})
+    return res.deletedCount > 0
+  }
+
   async getMessage({id}) {
     let _id
     try {
