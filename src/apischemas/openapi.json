@@ -61,6 +61,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "./errors/invalidRequest.json"
           }
         }
       }
@@ -93,6 +96,9 @@
                 }
               }
             }
+          },
+          "404": {
+            "$ref": "./errors/resourceNotFound.json"
           }
         }
       },
@@ -122,6 +128,12 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "./errors/invalidRequest.json"
+          },
+          "404": {
+            "$ref": "./errors/resourceNotFound.json"
           }
         }
       },
@@ -134,6 +146,9 @@
         "responses": {
           "204": {
             "description": "204 response"
+          },
+          "404": {
+            "$ref": "./errors/resourceNotFound.json"
           }
         }
       }

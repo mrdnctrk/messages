@@ -1,7 +1,7 @@
 const {getMessageRepository} = require('../repositories/repositories')
 const UUID = require('../helpers/UUID')
 const isPalindrome = require('../helpers/isPalindrome')
-const APIError = require('../errors/APIError')
+const ErrorWithCode = require('../errors/ErrorWithCode')
 
 async function createMessage({message, messageRepo=getMessageRepository()}) {
   message.id = UUID.generateRandom()
@@ -16,13 +16,7 @@ async function createMessage({message, messageRepo=getMessageRepository()}) {
 async function deleteMessage({id, messageRepo=getMessageRepository()}) {
   let isDeleted = await messageRepo.deleteMessage({id})
   if (!isDeleted){
-    const error = new Error()
-    error.errorCode = 'E_RESOURCE_NOT_FOUND'
-    error.resourceId = id
-    throw APIError.fromSingleError({
-      statusCode: 404,
-      error
-    })
+    throw new ErrorWithCode({code: 'E_RESOURCE_NOT_FOUND', resourceId: id})
   }
 }
 
@@ -30,14 +24,7 @@ async function deleteMessage({id, messageRepo=getMessageRepository()}) {
 async function getMessage({id, messageRepo=getMessageRepository()}) {
   let message = await messageRepo.getMessage({id})
   if (!message) {
-    //TODO: stream line errors
-    const error = new Error()
-    error.errorCode = 'E_RESOURCE_NOT_FOUND'
-    error.resourceId = id
-    throw APIError.fromSingleError({
-      statusCode: 404,
-      error
-    })
+    throw new ErrorWithCode({code: 'E_RESOURCE_NOT_FOUND', resourceId: id})
   }
 
   return message
@@ -54,14 +41,7 @@ async function updateMessage({message, messageRepo=getMessageRepository()}) {
   message.isPalindrome = isPalindrome(message.message)
   let updatedMessage = await messageRepo.updateMessage({message})
   if (!updatedMessage) {
-    //TODO: stream line errors
-    const error = new Error()
-    error.errorCode = 'E_RESOURCE_NOT_FOUND'
-    error.resourceId = message.id
-    throw APIError.fromSingleError({
-      statusCode: 404,
-      error
-    })
+    throw new ErrorWithCode({code: 'E_RESOURCE_NOT_FOUND', resourceId: message.id})
   }
 
   return updatedMessage

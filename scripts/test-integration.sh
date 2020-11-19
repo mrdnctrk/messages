@@ -6,8 +6,8 @@ source .env.test
 set +a
 set +e 
 
-#start the server and move it background
-node src/start.js &
+#start the server (using nyc to be able to get code coverage)  and move it background
+node node_modules/.bin/nyc node src/start.js &
 
 #wait until the server is ready
 until $(curl --output /dev/null --silent --fail ${SERVER_PROTOCOL}://${SERVER_ADDRESS}:${SERVER_PORT}/api/health/readiness); do

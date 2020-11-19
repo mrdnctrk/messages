@@ -1,5 +1,5 @@
 const JSONSchemaValidator = require('./JSONSchemaValidator')
-const APIError = require('../errors/APIError')
+const ErrorWithCode = require('../errors/ErrorWithCode')
 
 function validateRequestBody({schema, body}) {
   try {
@@ -7,19 +7,14 @@ function validateRequestBody({schema, body}) {
     validator.validate(body)
   }
   catch (e) {
-    const error = new Error()
-    error.errorCode = 'E_INVALID_REQUEST_BODY'
-    error.invalidFields = [{
-      path: e.dataPath,
-      reason: e.keyword
-    }]
-
-    throw APIError.fromSingleError({
-      statusCode: 400,
-      error
+    throw new ErrorWithCode({
+      code: 'E_INVALID_REQUEST_BODY',
+      invalidFields : [{
+        path: e.dataPath,
+        reason: e.keyword
+      }]
     })
   }
-
 }
 
 module.exports = validateRequestBody

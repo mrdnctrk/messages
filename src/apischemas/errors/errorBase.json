@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "required": [
+    "code"
+  ],
+  "properties": {
+    "code": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "description": "description of the error"
+    },
+    "detail": {
+      "type": "string",
+      "description": "more details about the error, if any"
+    }
+  }
+}
