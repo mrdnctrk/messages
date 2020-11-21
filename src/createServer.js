@@ -1,19 +1,18 @@
 const express = require('express')
-const cors = require('cors')
 const messagesRouter = require('./controllers/messages/messagesRouter')
 const healthRouter = require('./controllers/health/healthRouter')
 const unknownEndpointHandler = require('./middleware/unknownEndpointHandler')
 const errorHandler = require('./middleware/errorHandler')
+const path = require('path')
 const logger = console
 
 function createServer({port}) {
   return new Promise((resolve, reject) => {
     try {
       const app = express();
-      //cors to enable swagger ui
-      app.use(cors({
-        origin: 'http://127.0.0.1:8181'
-      }))
+      //serve api schemas and swagger-ui
+      app.use('/schemas', express.static(path.join(__dirname, './apischemas')))
+      app.use('/docs', express.static(path.join(__dirname,'../swagger-ui/site')))
 
       app.use(express.json());
 

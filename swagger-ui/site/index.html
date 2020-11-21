@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Swagger</title>
+    <link rel="stylesheet" type="text/css" href="./swagger-ui-3.22.3.css" />
+  </head>
+  <body>
+    <div id="swagger-ui"></div>
+
+    <script src="./swagger-ui-standalone-preset-3.22.3.js"></script>
+    <script src="./swagger-ui-bundle-3.22.3.js"></script>
+
+    <script>
+      let requestInterceptor = (req) => {
+        req.headers = req.headers || {};
+        req.headers["Cache-Control"] = "no-cache";
+        return req;
+      };
+
+      window.onload = function () {
+        const ui = SwaggerUIBundle({
+          url: "../schemas/openapi.json",
+          dom_id: "#swagger-ui",
+          deepLinking: true,
+          presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+          plugins: [SwaggerUIBundle.plugins.DownloadUrl],
+          layout: "StandaloneLayout",
+          validatorUrl: null,
+          requestInterceptor,
+        });
+        window.ui = ui;
+      };
+    </script>
+  </body>
+</html>

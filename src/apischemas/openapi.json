@@ -4,18 +4,8 @@
     "title": "Messages",
     "version": "1.0.0"
   },
-  "servers": [
-    {
-      "url": "http://127.0.0.1:5000/{basePath}",
-      "variables": {
-        "basePath": {
-          "default": "api"
-        }
-      }
-    }
-  ],
   "paths": {
-    "/messages": {
+    "/api/messages": {
       "get": {
         "tags": [
           "messages"
@@ -68,7 +58,7 @@
         }
       }
     },
-    "/messages/{id}": {
+    "/api/messages/{id}": {
       "parameters": [
         {
           "name": "id",
@@ -153,7 +143,7 @@
         }
       }
     },
-    "/health/readiness": {
+    "/api/health/readiness": {
       "get": {
         "tags": [
           "health"
