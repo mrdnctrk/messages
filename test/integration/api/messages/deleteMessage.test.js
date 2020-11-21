@@ -1,4 +1,4 @@
-const APIClient = require('../../../../devTools/apiClient')
+const APIClient = require('../APIClient')
 const assert = require('assert')
 
 describe('delete message tests', () => {
