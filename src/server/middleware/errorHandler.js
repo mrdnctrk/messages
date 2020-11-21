@@ -1,4 +1,4 @@
-const getErrorResponse = require('../helpers/getErrorResponse')
+const getErrorResponse = require('../../helpers/getErrorResponse')
 
 function errorHandler (err, req, res, next) {
   if (err) {

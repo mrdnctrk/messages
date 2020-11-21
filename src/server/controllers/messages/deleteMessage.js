@@ -1,4 +1,4 @@
-const MessageService = require('../../services/MessageService')
+const MessageService = require('../../../services/MessageService')
 
 async function deleteMessage(req, res, next) {
   try {

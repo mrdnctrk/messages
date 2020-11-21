@@ -1,4 +1,4 @@
-const validateRequestBody = require('../helpers/validateRequestBody')
+const validateRequestBody = require('../../helpers/validateRequestBody')
 
 /**
  * Creates a middleware to validate a request body based on the given schema

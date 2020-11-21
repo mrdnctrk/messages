@@ -1,4 +1,4 @@
-const ErrorWithCode = require('../errors/ErrorWithCode')
+const ErrorWithCode = require('../../errors/ErrorWithCode')
 
 function unknownEndpointHandler(req, res, next) {
   let err = new ErrorWithCode({code: 'E_UNKNOWN_ENDPOINT'})

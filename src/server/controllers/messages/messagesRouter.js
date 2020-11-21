@@ -5,7 +5,7 @@ const getMessages = require('./getMessages');
 const deleteMessage = require('./deleteMessage');
 const updateMessage = require('./updateMessage');
 
-const messageSchema = require('../../apischemas/messages/message.json')
+const messageSchema = require('../../../apischemas/messages/message.json')
 
 const getValidator = require('../../middleware/getValidator')
 

@@ -1,7 +1,7 @@
-const createServer = require('./createServer')
+const createServer = require('./server/createServer')
 const {initializeDB} = require('./repositories/database')
 const logger = require('./helpers/logger')
-const config = require('./config')
+const config = require('./config/config')
 
 async function start() {
   try {
