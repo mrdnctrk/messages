@@ -13,7 +13,7 @@ async function createMessage({
     createdAt: now,
     updatedAt: now,
     message,
-    isPalindrome: isPalindrome(message)
+    isPalindrome: isPalindrome({str:message})
   }
   let insertedMessage = await messageRepo.insertMessage({message: messageToInsert})
   return insertedMessage
@@ -51,7 +51,7 @@ async function updateMessage({
     id,
     message,
     updatedAt: Date.now(),
-    isPalindrome: isPalindrome(message)
+    isPalindrome: isPalindrome({str:message})
   }
 
   let updatedMessage = await messageRepo.updateMessage({message: messageToUpdate})

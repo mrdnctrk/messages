@@ -15,20 +15,19 @@ describe('isPalindrome tests', () => {
     {str: 'abA', result: true},
     //string with accent
     {str: 'réifier', result: true},
-    //test string containing surrogate pairs
+    //test strings outside BMP (consisting of surrogate pairs)
     {str: '😀', result: true},
     {str: '😎aA😎', result: true},
     {str: '😎😀', result: false},
+    //invalid unicode string
+    {str: '\uD83D', result: false}
   ]
 
   for (let testCase of testCases) {
     it(`'${testCase.str}' is ${testCase.result ? '' : 'not '}a palindrome`, () => {
-      assert.equal(isPalindrome(testCase.str), testCase.result)
+      assert.equal(isPalindrome({str:testCase.str}), testCase.result)
     })
   }
-
-
-
 
 
 })
