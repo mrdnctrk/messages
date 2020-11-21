@@ -1,10 +1,10 @@
 class ErrorWithCode extends Error{
 
   /**
-  * @param {Object} arg - an object containing an error code and a free form of properties that
-  *                       should help clarify the error. The props is supposed to vary depending on
-  *                       the error code.
-  * @param {String} arg.code  - the error code
+  * @param {Object} param0 - an object containing an error code and a free form of properties that
+  *                          should help clarify the error. The props is supposed to vary depending on
+  *                          the error code.
+  * @param {string} param0.code  - the error code
   */
   constructor({code, ...props}, ...params) {
     // Pass remaining arguments (including vendor specific ones) to parent constructor

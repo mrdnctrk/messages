@@ -2,6 +2,11 @@ const APIErrorCodes = require('../errors/APIErrorCodes')
 const ErrorWithCode = require('../errors/ErrorWithCode')
 const logger = require('./logger')
 
+/**
+ * Looks up the error code in APIErrorCodes.js
+ * @param {*} err 
+ * @returns {string} APIErrorCode - defaults to E_INTERNAL_SERVER_ERROR if there is no matching code
+ */
 function getAPIErrorCode(err) {
   if (err instanceof ErrorWithCode) {
     if (APIErrorCodes[err.code]) {
@@ -34,7 +39,13 @@ function toResponse(err) {
   }
 }
 
-
+/**
+ * Converts the given err, usually an Error object, to the response body and status code
+ * @param {*} err 
+ * @returns {Object} returnObj
+ * @returns {Object} returnObj.body - response body
+ * @returns {number} returnObj.statusCode - http status code
+ */
 function getErrorResponse (err) {
   let {body, statusCode} = toResponse(err)
   //wrapping in an array to have flexibity for the
