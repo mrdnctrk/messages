@@ -13,6 +13,12 @@ describe('isPalindrome tests', () => {
     {str: 'ab', result: false},
     {str: 'aba', result: true},
     {str: 'abA', result: true},
+    //string with accent
+    {str: 'réifier', result: true},
+    //test string containing surrogate pairs
+    {str: '😀', result: true},
+    {str: '😎aA😎', result: true},
+    {str: '😎😀', result: false},
   ]
 
   for (let testCase of testCases) {
@@ -20,8 +26,6 @@ describe('isPalindrome tests', () => {
       assert.equal(isPalindrome(testCase.str), testCase.result)
     })
   }
-
-
 
 
 
