@@ -1,12 +1,21 @@
 #!/bin/bash
-#run tests and remember the exit code
-node node_modules/.bin/nyc node_modules/.bin/mocha --exit --recursive test/unit --timeout 1000
-testExitCode=$?
+#caller can specify which tester service to run
+#defaults to tester which runs all the test 
+#the other option is unit-tester
+SERVICE=${1:-tester}
 
-#kill all child_processes if they haven't exited
-pkill -P $$
+docker-compose \
+  -p ci \
+  -f docker-compose.yml \
+  -f docker-compose.test.yml \
+  up \
+  --abort-on-container-exit \
+  --exit-code-from="${SERVICE}"\
+  "${SERVICE}"
+  
+TEST_EXIT_CODE=$?
 
-#exit with the text exit status
-exit $testExitCode
+docker-compose -p ci down --remove-orphans
 
+exit $TEST_EXIT_CODE
 

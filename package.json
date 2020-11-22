@@ -4,9 +4,7 @@
   "description": "Demo messages service",
   "main": "src/server.js",
   "scripts": {
-    "start": "./scripts/start.sh",
-    "test": "./scripts/test.sh",
-    "test-integration": "./scripts/test-integration.sh"
+    "start": "./scripts/start.sh"
   },
   "repository": {
     "type": "git",

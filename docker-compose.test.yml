@@ -1,0 +1,44 @@
+version: '3'
+services:
+  messages:
+    # runs the server through nyc 
+    # to be able to get code coverage
+    command: 
+      - './scripts/wait-for-it.sh'
+      - "mongodb:${MONGO_PORT}"
+      - "--timeout=30"
+      - "--" 
+      - 'node'
+      - 'node_modules/.bin/nyc'
+      - '--reporter=text-summary'
+      - '--reporter=lcovonly'
+      - 'node'
+      - './src/start.js'
+  #runs all tests 
+  tester:
+    environment:
+      - SERVER_PROTOCOL=http
+      - SERVER_ADDRESS=messages
+      - SERVER_PORT
+    image: messages  
+    volumes:
+      - /opt/app-root/node_modules
+      - .:/opt/app-root
+    depends_on:
+      - 'messages'
+    command: 
+      - './scripts/wait-for-it.sh'
+      - "--timeout=30"
+      - "messages:${SERVER_PORT}"
+      - "--"
+      - "./scripts/_test.sh"
+  #runs just unit tests
+  unit-tester:
+    image: messages  
+    volumes:
+      - /opt/app-root/node_modules
+      - .:/opt/app-root
+    command: ["./scripts/_test.sh", "test/unit"]
+
+
+

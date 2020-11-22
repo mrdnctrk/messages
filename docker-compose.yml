@@ -1,0 +1,20 @@
+version: '3'
+services:
+  mongodb:
+    image: 'mongo:3.6.21'
+  messages:
+    build:
+      dockerfile: Dockerfile.dev
+      context: .
+    image: messages  
+    environment: 
+      - SERVER_PORT
+      - MONGO_HOST
+      - MONGO_PORT
+      - DB_NAME
+    volumes:
+      - /opt/app-root/node_modules
+      - .:/opt/app-root
+    depends_on:
+      - 'mongodb'
+    command: ['./scripts/wait-for-it.sh', "mongodb:${MONGO_PORT}", "--timeout=30", "--", 'node', './src/start.js']
