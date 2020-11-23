@@ -43,6 +43,15 @@
         },
         "responses": {
           "201": {
+            "headers": {
+              "Location": {
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "description": "url to the newly created reource"
+              }
+            },
             "description": "201 response",
             "content": {
               "application/json": {

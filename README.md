@@ -53,7 +53,7 @@ DB_NAME=messages-db
 In a development environment, it is recommended to run this project using `docker-compose`, as it requires minimal setup.  
 
 1. Make sure you have `docker` and `docker-compose` installed. On Mac and Windows docker-compose is included with docker engine, on Linux it has to be installed separately.
-2. Make sure you have an .env file at root of the project as in the example above, use the same values as in the example. 
+2. Make sure you have an .env file at root of the project as in the example above, values for `MONGO_HOST` and `MONGO_PORT` should be kept the same as in the example.
 3. In the root folder of the project, run the following commands:  
     * For the very first time:    
     `$ docker-compose build`    

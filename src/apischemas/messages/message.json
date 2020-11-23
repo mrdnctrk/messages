@@ -15,11 +15,13 @@
     },
     "createdAt": {
       "type": "integer",
-      "readOnly": true
+      "readOnly": true,
+      "description": "Epoch timestamp indicating when the message was created"
     },
     "updatedAt": {
       "type": "integer",
-      "readOnly": true
+      "readOnly": true,
+      "description": "Epoch timestamp indicating when the message was last updated"
     },
     "isPalindrome": {
       "type": "boolean",
