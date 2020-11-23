@@ -53,7 +53,7 @@ DB_NAME=messages-db
 In a development environment, it is recommended to run this project using `docker-compose`, as it requires minimal setup.  
 
 1. Make sure you have `docker` and `docker-compose` installed. On Mac and Windows docker-compose is included with docker engine, on Linux it has to be installed separately.
-2. Make sure you have an .env file at root of the project as in the example above, keep the values as is. 
+2. Make sure you have an .env file at root of the project as in the example above, use the same values as in the example. 
 3. In the root folder of the project, run the following commands:  
     * For the very first time:    
     `$ docker-compose build`    
@@ -72,7 +72,8 @@ In a development environment, it is recommended to run this project using `docke
 ## Run without docker-compose
 1. Make sure you have a live MongoDB instance and enter its address and port in the .env file. 
 2. Make sure you have Node.js version 12 or later installed. 
-2. Run either `npm run start` or `./scripts/start.sh`
+3. Run `npm install` at the root folder of the project.
+4. Run either `npm run start` or `./scripts/start.sh`
 
 # CI Integration
 
