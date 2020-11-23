@@ -10,12 +10,16 @@ function getDB() {
 
 async function initializeDB(config) {
   if (!config.MONGO_HOST) {
-    throw new Error('MONGO_HOST is not defined. Make sure to make it available as an env variable')
+    throw new Error('MONGO_HOST is not defined. Make sure it is provided as an env variable')
   }
 
   if (!config.MONGO_PORT) {
-    throw new Error('MONGO_PORT is not defined. Make sure to make it available as an env variable')
+    throw new Error('MONGO_PORT is not defined. Make sure it is provided as an env variable')
   }
+  if (!config.DB_NAME) {
+    throw new Error('DB_NAME is not defined. Make sure it is provided as an env variable')
+  }
+
 
   const connectionUrl = `mongodb://${config.MONGO_HOST}:${config.MONGO_PORT}}`
   let client = await MongoClient.connect(connectionUrl, {useUnifiedTopology: true})
