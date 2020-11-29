@@ -18,6 +18,7 @@ describe('isPalindrome tests', () => {
     //test strings outside BMP (consisting of surrogate pairs)
     {str: '😀', result: true},
     {str: '😎aA😎', result: true},
+    {str: '😎aab😎', result: false},
     {str: '😎😀', result: false},
     //invalid unicode string
     {str: '\uD83D', result: false}

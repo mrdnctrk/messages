@@ -96,7 +96,7 @@ function * getWholeCharsBackward({str, startIndex=str.length -1}) {
     }
 
     yield {char, index:j}
-    j -= char.length
+    j--
   }
 
 }
